@@ -23,8 +23,8 @@ for item in dataset_path.rglob("*"):
         else:
             print("Keine Bilder gefunden")
 
-IMG_SIZE = 224 #Kann beliebig geänedrt werden Notiz an mich: Mach später mal hoch
-BATCH_SIZE = 32 #Das auch (bei beiden)
+IMG_SIZE = 224 
+BATCH_SIZE = 32 
 
 train_dir = dataset_path #Trainingsordner
 
@@ -42,7 +42,7 @@ train_datagen = ImageDataGenerator(
     shear_range=0.2, #Verzerrung
     zoom_range=0.2,#Zufälliger Zoom 0,8 bis 1,2
     horizontal_flip=True,
-    validation_split=0.2, #20% werden zur Validierung verwendet    Trainingsdateien sind 'training' genannt, Validierungsdateien sind 'validation
+    validation_split=0.2, #20% werden zur Validierung verwendet    
 )
 
 train_generator = train_datagen.flow_from_directory(
@@ -71,14 +71,13 @@ num_classes = len(train_generator.class_indices)
 
 def create_small_cnn(num_classes):
     model = keras.Sequential([
-        # Nur 2 Blocks statt 4!
+        
         layers.Conv2D(32, (3, 3), activation='relu', input_shape=(IMG_SIZE, IMG_SIZE, 3)),
         layers.MaxPooling2D((2, 2)),
         
         layers.Conv2D(64, (3, 3), activation='relu'),
         layers.MaxPooling2D((2, 2)),
         
-        # Viel kleinere Dense Layers
         layers.Flatten(),
         layers.Dense(128, activation='relu'),
         layers.Dropout(0.5),

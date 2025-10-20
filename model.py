@@ -29,7 +29,7 @@ def predict_potato_disease(image_path, model, class_names):
     predicted_class_idx = np.argmax(predictions[0])
     confidence = predictions[0][predicted_class_idx]
     
-    # JSON keys sind Strings, also hier sicherheitshalber str()
+    
     predicted_class = class_names[str(predicted_class_idx)]
     
     return predicted_class, confidence
